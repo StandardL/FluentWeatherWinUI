@@ -37,7 +37,7 @@
             <TextBlock x:Name="DescriptionTextBlock"
                        FontSize="12"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
-                       RelativePanel.Below="TemperatureText"
+                       RelativePanel.Below="TemperatureTextBlock"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Text="{x:Bind DescText}"
                        TextAlignment="Center">
@@ -62,7 +62,7 @@
                        Height="1"
                        Margin="0,8,0,0"
                        Fill="#7FAFAFAF"
-                       RelativePanel.Above="HourText"
+                       RelativePanel.Above="HourTextBlock"
                        RelativePanel.AlignHorizontalCenterWithPanel="True" />
 
             <TextBlock x:Name="HourTextBlock"
