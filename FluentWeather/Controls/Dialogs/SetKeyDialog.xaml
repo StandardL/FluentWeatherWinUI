@@ -1,0 +1,16 @@
+<ContentDialog x:Class="FluentWeather.Controls.Dialogs.SetKeyDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:local="using:FluentWeather.Controls.Dialogs"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               Title="{x:Bind strTitle}"
+               DefaultButton="Primary"
+               PrimaryButtonText="{x:Bind strPrimaryBtnText}"
+               mc:Ignorable="d">
+    <ContentDialog.Resources>
+        <Style BasedOn="{StaticResource DefaultContentDialogStyle}" TargetType="local:SetKeyDialog">
+            <Setter Property="Background" Value="{StaticResource AcrylicBackgroundFillColorBaseBrush}" />
+        </Style>
+    </ContentDialog.Resources>
+</ContentDialog>

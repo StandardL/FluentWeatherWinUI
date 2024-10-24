@@ -1,0 +1,119 @@
+﻿<Page x:Class="FluentWeather.Views.ShellPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:FluentWeather.Behaviors"
+      xmlns:control="using:FluentWeather.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:helpers="using:FluentWeather.Helpers"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:local="using:FluentWeather.Models"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Loaded="OnLoaded">
+    <!--<Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Resource/Background/1.jpg" Stretch="UniformToFill" />
+    </Page.Background>-->
+    <Grid>
+        <Grid x:Name="AppTitleBar"
+              Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
+              VerticalAlignment="Top"
+              Canvas.ZIndex="1"
+              IsHitTestVisible="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="IconColumn" Width="Auto" />
+                <ColumnDefinition x:Name="TitleColumn" Width="Auto" />
+                <ColumnDefinition x:Name="SearchColumn" Width="4*" MinWidth="30" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0"
+                   Width="16"
+                   Height="16"
+                   HorizontalAlignment="Left"
+                   Source="/Assets/WindowIcon.ico" />
+            <TextBlock x:Name="AppTitleBarText"
+                       Grid.Column="1"
+                       Margin="28,0,0,0"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       TextWrapping="NoWrap" />
+            <!--  TODO多语言  -->
+            <AutoSuggestBox x:Name="TitlebarSearchBox"
+                            Grid.Column="2"
+                            MaxWidth="400"
+                            VerticalAlignment="Center"
+                            PlaceholderText="输入需要搜索的城市名..."
+                            QueryIcon="Find" />
+        </Grid>
+        <NavigationView x:Name="NavigationViewControl"
+                        Canvas.ZIndex="0"
+                        DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+                        ExpandedModeThresholdWidth="1280"
+                        IsBackButtonVisible="Visible"
+                        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+                        IsPaneOpen="True"
+                        IsSettingsVisible="True"
+                        MenuItemsSource="{x:Bind ViewModel.Locations, Mode=OneWay}"
+                        OpenPaneLength="192"
+                        PaneDisplayMode="Left"
+                        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
+                        SelectionChanged="NavigationViewControl_SelectionChanged">
+            <!--<NavigationView.MenuItems>
+            -->
+            <!--
+                TODO: Update item titles by updating <x:Uid>.Content entries in Strings/en-us/Resources.resw.
+                https://docs.microsoft.com/windows/uwp/app-resources/localize-strings-ui-manifest#refer-to-a-string-resource-identifier-from-xaml
+
+                TODO: Update item icons by updating FontIcon.Glyph properties.
+                https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
+            -->
+            <!--
+                <NavigationViewItem x:Uid="Shell_Search" helpers:NavigationHelper.NavigateTo="FluentWeather.ViewModels.SearchViewModel">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>-->
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="local:WeatherLocation">
+                    <NavigationViewItem RightTapped="NavigationViewItem_RightTapped" Tag="{x:Bind LocationName}">
+                        <NavigationViewItem.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="{x:Bind LocationName}" />
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{x:Bind DisplayText}" />
+                            </Grid>
+                        </NavigationViewItem.Content>
+                        <NavigationViewItem.Icon>
+                            <ImageIcon Source="{x:Bind IconUri}" />
+                        </NavigationViewItem.Icon>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="{x:Bind LocationName, Mode=OneWay}" />
+                        </ToolTipService.ToolTip>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+            <NavigationView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </NavigationView.HeaderTemplate>
+            <!--<i:Interaction.Behaviors>
+                <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
+                    <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding}" />
+                            </Grid>
+                        </DataTemplate>
+                    </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                </behaviors:NavigationViewHeaderBehavior>
+            </i:Interaction.Behaviors>-->
+            <Grid Margin="{StaticResource NavigationViewPageContentMargin}">
+                <Frame x:Name="ContentFrame" />
+            </Grid>
+        </NavigationView>
+    </Grid>
+</Page>

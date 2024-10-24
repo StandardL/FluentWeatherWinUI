@@ -1,0 +1,58 @@
+<UserControl x:Class="FluentWeather.Controls.WeatherDailyCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:FluentWeather.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Width="135"
+             Height="70"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Opacity="0.3" Color="LightGray" />
+    </UserControl.Resources>
+    <Border Padding="5"
+            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image x:Name="mainIcon"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Width="28"
+                   HorizontalAlignment="Left"
+                   Source="{x:Bind MainIconSource}"
+                   Stretch="Uniform" />
+            <TextBlock x:Name="DateTextBlock"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Text="{x:Bind DateText}" />
+            <TextBlock x:Name="TempTextBlock"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Bottom"
+                       Text="{x:Bind TempText}" />
+            <RelativePanel x:Name="RainPerRelPanel"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom">
+                <Image x:Name="rainPerIcon"
+                       Width="16"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       Source="{x:Bind RainPerIconSource}" />
+                <TextBlock x:Name="rainPerTextBlock" RelativePanel.RightOf="rainPerIcon" Text="{x:Bind RainPerText}" />
+            </RelativePanel>
+        </Grid>
+    </Border>
+</UserControl>

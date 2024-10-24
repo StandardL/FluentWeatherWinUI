@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "FluentWeather (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "FluentWeather (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

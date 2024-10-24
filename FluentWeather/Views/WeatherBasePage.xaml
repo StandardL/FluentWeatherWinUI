@@ -1,0 +1,211 @@
+﻿<Page x:Class="FluentWeather.Views.WeatherBasePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:FluentWeather.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:FluentWeather.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:model="using:FluentWeather.Models"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="WeatherPageSubItemTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Margin" Value="0,5" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+    </Page.Resources>
+    <ScrollView HorizontalScrollBarVisibility="Auto">
+        <StackPanel x:Name="MainStackPanel" Orientation="Vertical" Spacing="5">
+            <!--  当前地点概述  -->
+            <Grid x:Name="LocationGrid" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <FontIcon x:Name="LocationIcon"
+                          Grid.Row="0"
+                          Grid.RowSpan="2"
+                          Grid.Column="0"
+                          Margin="0,0,5,0"
+                          FontSize="30"
+                          Glyph="&#xEC07;" />
+                <TextBlock x:Name="LocationTextBlock"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Text="{x:Bind strLocationName}" />
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock x:Name="LocationUpdateTextBlock"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               Text="{x:Bind strLocationUpdateTimeMainText}" />
+                    <TextBlock x:Name="LocationUpdateTimeTextBlock"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               Text="{x:Bind strLocationUpdateTime}" />
+                </StackPanel>
+
+            </Grid>
+            <!--  当前天气概况  -->
+            <Grid x:Name="WeatherNowGrid" Margin="0,10" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Image x:Name="WeatherNowIconImage"
+                       Grid.Row="0"
+                       Grid.RowSpan="2"
+                       Grid.Column="0"
+                       Width="90"
+                       Height="90"
+                       VerticalAlignment="Bottom"
+                       Source="ms-appx:///Resource/Weticons/32.svg" />
+                <TextBlock x:Name="WeatherNowTempTextBlock"
+                           Grid.Row="0"
+                           Grid.RowSpan="2"
+                           Grid.Column="1"
+                           VerticalAlignment="Bottom"
+                           Style="{StaticResource DisplayTextBlockStyle}"
+                           Text="{x:Bind strWeatherNowTemp}" />
+                <TextBlock x:Name="WeatherNowCurDescTextBlock"
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           VerticalAlignment="Bottom"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Text="{x:Bind strWeatherInfo}" />
+                <Grid x:Name="WeatherNowExtraInfoGrid" Grid.Row="1" Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--  TODO: 需要绑定数据，这里先用一些假数据看看效果  -->
+                    <TextBlock x:Name="WeatherNowFeelsTempTextBlock"
+                               Grid.Column="0"
+                               Margin="0,0,10,0"
+                               FontWeight="SemiLight"
+                               Text="体感温度 18°C" />
+                    <TextBlock x:Name="WeatherNowMaxMinTempTextBlock"
+                               Grid.Column="1"
+                               FontWeight="SemiLight"
+                               Text="32°C / 18°C " />
+                    <HyperlinkButton x:Name="MinuteRainHLBtn"
+                                     Grid.Row="1"
+                                     Content="2小时内无降水"
+                                     Visibility="Collapsed" />
+                </Grid>
+            </Grid>
+            <!--  未来一周天气  -->
+            <Grid x:Name="Weather7DGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="Weather7DTitleTextBlock"
+                           Grid.Row="0"
+                           Style="{StaticResource WeatherPageSubItemTitle}"
+                           Text="每日预报" />
+                <ScrollViewer Grid.Row="1"
+                              HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Disabled"
+                              VerticalScrollMode="Disabled">
+                    <ItemsRepeater x:Name="DaysRepeater" ItemsSource="{x:Bind ViewModel.SelectedLocation.Weather.daily}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Horizontal" Spacing="8" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="model:WeatherDays">
+                                <controls:WeatherDailyCard HorizontalAlignment="Left"
+                                                           DateText="{x:Bind DateText}"
+                                                           MainIconSource="ms-appx:///Resource/Weticons/D200PartlySunnyV2.svg"
+                                                           RainPerIconSource="ms-appx:///Resource/Varicons/blur0.svg"
+                                                           RainPerText="0%"
+                                                           TempText="{x:Bind TempText}" />
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </Grid>
+            <!--  每小时预报  -->
+            <Grid x:Name="WeatherHoursGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="WeatherHoursTitleTextBlock"
+                           Grid.Row="0"
+                           Style="{StaticResource WeatherPageSubItemTitle}"
+                           Text="每小时预报" />
+                <Grid Grid.Row="1"
+                      Margin="0,0,32,0"
+                      Padding="12"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="{StaticResource AcrylicInAppFillColorDefaultBrush}"
+                      BorderThickness="2"
+                      CornerRadius="8">
+                    <ScrollViewer VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled">
+                        <ItemsRepeater x:Name="HoursRepeater" ItemsSource="{x:Bind ViewModel.SelectedLocation.Weather.hourly}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Orientation="Horizontal" Spacing="8" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="model:WeatherHours">
+                                    <controls:WeatherHoursCard HorizontalAlignment="Left"
+                                                               DescText="{x:Bind text}"
+                                                               HourText="{x:Bind TimeText}"
+                                                               RainPerIconSource="ms-appx:///Resource/Varicons/blur0.svg"
+                                                               RainPerText="{x:Bind PrecipText}"
+                                                               TempText="{x:Bind TempText}"
+                                                               WetIconSource="ms-appx:///Resource/Weticons/D200PartlySunnyV2.svg" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
+
+                </Grid>
+            </Grid>
+            <!--  天气信息  -->
+            <Grid x:Name="WeatherInfoGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="WeatherInfoTitleTextBlock"
+                           Grid.Row="0"
+                           Style="{StaticResource WeatherPageSubItemTitle}"
+                           Text="天气信息" />
+                <StackPanel Grid.Row="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                    <!--  TODO: 关注多语言  -->
+                    <controls:WeatherInfoCard Title="日出" Description="内容" ImageSource="ms-appx:///Resource/Varicons/Sunrise.svg" />
+                    <controls:WeatherInfoCard Title="日落" Description="内容" ImageSource="ms-appx:///Resource/Varicons/Sunset.svg" />
+                    <controls:WeatherInfoCard Title="风速" Description="内容" ImageSource="ms-appx:///Resource/Weticons/23.svg" />
+                    <controls:WeatherInfoCard Title="湿度" Description="内容" ImageSource="ms-appx:///Resource/Varicons/precip.svg" />
+                    <controls:WeatherInfoCard Title="能见度" Description="内容" ImageSource="ms-appx:///Resource/Varicons/Eye.svg" />
+                    <controls:WeatherInfoCard Title="气压" Description="内容" ImageSource="ms-appx:///Resource/Varicons/CarbonPressure.svg" />
+                    <controls:WeatherInfoCard Title="露点" Description="内容" ImageSource="ms-appx:///Resource/Varicons/MdiWaterThermometerOutline.svg" />
+                </StackPanel>
+
+            </Grid>
+        </StackPanel>
+    </ScrollView>
+</Page>
