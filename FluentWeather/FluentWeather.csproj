@@ -17,6 +17,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Controls\Card\WeatherHoursDetailCard.xaml" />
     <None Remove="Controls\Dialogs\SetKeyDialog.xaml" />
     <None Remove="Controls\WeatherDailyCard.xaml" />
     <None Remove="Controls\WeatherHoursCard.xaml" />
@@ -118,6 +119,7 @@
     <None Remove="Resource\Weticons\LightRainV3.svg" />
     <None Remove="Resource\Weticons\MostlySunnyDay.svg" />
     <None Remove="Resource\Weticons\SunnyDayV3.svg" />
+    <None Remove="Themes\Generic.xaml" />
     <None Remove="Views\WeatherBasePage.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +145,12 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Controls\Card\WeatherHoursDetailCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Controls\Dialogs\SetKeyDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -745,9 +753,6 @@
 	  <Content Include="Resource\Weticons\LightRainV3.svg" />
 	  <Content Include="Resource\Weticons\MostlySunnyDay.svg" />
 	  <Content Include="Resource\Weticons\SunnyDayV3.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\Card\" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">

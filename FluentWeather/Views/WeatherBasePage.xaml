@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:FluentWeather.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:media="using:Microsoft.UI.Xaml.Media"
       xmlns:model="using:FluentWeather.Models"
       mc:Ignorable="d">
     <Page.Resources>
@@ -156,7 +157,7 @@
                       Padding="12"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-                      Background="{StaticResource AcrylicInAppFillColorDefaultBrush}"
+                      Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
                       BorderThickness="2"
                       CornerRadius="8">
                     <ScrollViewer VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled">

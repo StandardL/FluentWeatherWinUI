@@ -9,9 +9,10 @@
       xmlns:local="using:FluentWeather.Models"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       Loaded="OnLoaded">
-    <!--<Page.Background>
+    <Page.Background>
         <ImageBrush ImageSource="ms-appx:///Resource/Background/1.jpg" Stretch="UniformToFill" />
-    </Page.Background>-->
+        <!--<ImageBrush ImageSource="ms-appx:///Resource/Background/2.jpg" Stretch="UniformToFill" />-->
+    </Page.Background>
     <Grid>
         <Grid x:Name="AppTitleBar"
               Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"

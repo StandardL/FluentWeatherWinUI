@@ -1,4 +1,6 @@
-﻿namespace FluentWeather.Models;
+﻿using System.Reflection.Metadata;
+
+namespace FluentWeather.Models;
 
 public class WeatherHours
 {
@@ -18,6 +20,10 @@ public class WeatherHours
     public int? dew { get; set; }  // 露点温度
 
     public string TempText { get => $"{temp}°C"; }  // TODO: 多单位
-    public string TimeText { get => $"{fxTime.Hour}"; }
+    public string TimeText { get => $"{fxTime.Hour}:00"; }
     public string PrecipText { get => $"{precip}mm"; }
+    public string PopText { get => $"{pop}%"; }
+    public string WindText { get => $"{windDir} {windSpeed}km/h"; }
+    public string DewText { get => $"{dew}°C"; }  // TODO: 多单位
+    public string PressureText { get => $"{pressure}kPa"; }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="FluentWeather.Controls.WeatherHoursDetailCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:FluentWeather.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Border Width="120"
+            Height="65"
+            Margin="0,4,4,4"
+            Padding="8"
+            Background="#1DFFFFFF"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            CornerRadius="6">
+        <RelativePanel>
+            <TextBlock x:Name="DetailTitleTextBlock"
+                       RelativePanel.AlignTopWithPanel="True"
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       Text="标题" />
+            <TextBlock x:Name="DetailContentTextBlock"
+                       RelativePanel.Below="DetailTitleTextBlock"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Text="内容" />
+        </RelativePanel>
+    </Border>
+</UserControl>
